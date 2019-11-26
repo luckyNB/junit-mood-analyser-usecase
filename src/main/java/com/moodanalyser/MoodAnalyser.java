@@ -7,7 +7,11 @@ public class MoodAnalyser {
         this.message = message;
     }
 
+    public MoodAnalyser(String please_enter_proper_message, MoodAnalyser moodAnalyser) {
+    }
+
     public MoodAnalyser() {
+
     }
 
     public String analyzeMood() throws MoodException {
@@ -31,4 +35,13 @@ public class MoodAnalyser {
             throw  new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY);
         }
     }
+
+    public boolean equals(Object object){
+        if(this==object){
+            return true;
+        }
+        else
+            return false;
+    }
+
 }
