@@ -25,4 +25,10 @@ public class MoodAnalyser {
         if (moodAnalyser == null)
             throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL);
     }
+
+    public void analyzeMood(String mood) throws MoodAnalysisException {
+        if (mood.isEmpty()){
+            throw  new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY);
+        }
+    }
 }
