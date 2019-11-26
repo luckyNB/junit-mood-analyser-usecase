@@ -5,10 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserFactory {
 
-    public static MoodAnalyser createMoodAnalyserObject() throws ClassNotFoundException {
+    public static MoodAnalyser createMoodAnalyserObject() throws MoodAnalysisException {
 
         try {
-            Class<?> moodAnalyserClass = Class.forName("com.moodanalyser.MoodAnalyser");
+            Class<?> moodAnalyserClass = Class.forName("com.moodanalyser.MoodAnalyser1");
             Constructor<?> moodAnalyserConstructor = moodAnalyserClass.getConstructor();
             Object moodObject = moodAnalyserConstructor.newInstance();
             return (MoodAnalyser) moodObject;
@@ -20,6 +20,10 @@ public class MoodAnalyserFactory {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            throw new MoodAnalysisException("No Such Class Error");
+
         }
         return null;
     }

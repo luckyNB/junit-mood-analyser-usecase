@@ -89,8 +89,20 @@ public class MoodAnalyserTest {
             MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
             boolean result = moodAnalyser.equals(moodAnalyser);
             Assert.assertTrue(result);
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void givenWrongClassName_Should_ThrowException() throws MoodAnalysisException {
+        try {
+            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
+            boolean result = moodAnalyser.equals(moodAnalyser);
+            Assert.assertTrue(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
