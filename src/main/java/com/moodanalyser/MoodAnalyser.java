@@ -10,14 +10,18 @@ public class MoodAnalyser {
     public MoodAnalyser() {
     }
 
-    public String analyzeMood() {
-        if (message.contains("ANY"))
-            return "HAPPY";
-        if (message.contains("SAD"))
-            return "SAD";
-        if (message.contains(""))
-            return "HAPPY";
-        else
-            return "SAD";
+    public String analyzeMood() throws MoodException {
+        try {
+            if (message.contains("ANY"))
+                return "HAPPY";
+            if (message.contains("SAD"))
+                return "SAD";
+            if (message.contains(""))
+                return "HAPPY";
+            else
+                return "SAD";
+        } catch (NullPointerException e) {
+            throw new MoodException("Please Enter Proper Mood");
+        }
     }
 }
