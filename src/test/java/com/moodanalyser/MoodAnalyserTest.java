@@ -50,7 +50,16 @@ public class MoodAnalyserTest {
         } catch (MoodException e) {
             Assert.assertEquals("Please Enter Proper Mood", e.getMessage());
         }
+    }
 
-
+    @Test
+    public void givenMessageNull_Should_ReturnHappy() {
+        MoodAnalyser moodAnalyser = new MoodAnalyser(null);
+        try {
+            String currentMood = moodAnalyser.analyzeMood();
+            Assert.assertEquals("HAPPY", currentMood);
+        } catch (MoodException e) {
+            e.printStackTrace();
+        }
     }
 }
