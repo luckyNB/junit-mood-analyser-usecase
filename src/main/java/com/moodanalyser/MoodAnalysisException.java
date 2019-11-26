@@ -1,10 +1,7 @@
 package com.moodanalyser;
 
-public class MoodAnalysisException extends  Exception {
+public class MoodAnalysisException extends Exception {
 
-    public enum ExceptionType{
-        ENTERED_NULL, ENTERED_EMPTY
-    }
     ExceptionType type;
 
     public MoodAnalysisException(ExceptionType type) {
@@ -17,6 +14,9 @@ public class MoodAnalysisException extends  Exception {
 
     public MoodAnalysisException(String message, ExceptionType type) {
         super(message);
-       // this.type = type;
+    }
+
+    public enum ExceptionType {
+        ENTERED_NULL, ENTERED_EMPTY
     }
 }

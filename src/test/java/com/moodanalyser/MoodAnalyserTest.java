@@ -65,14 +65,11 @@ public class MoodAnalyserTest {
 
     @Test
     public void givenNullMood_Should_ReturnException() {
-        MoodAnalyser moodAnalyser=new MoodAnalyser(null);
-
-            try {
-                moodAnalyser.analyzeMood(null);
-            }
-            catch (MoodAnalysisException e) {
-              Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL,e.type);
-            }
-
+        MoodAnalyser moodAnalyser = new MoodAnalyser(null);
+        try {
+            moodAnalyser.analyzeMood(null);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.type);
+        }
     }
 }
