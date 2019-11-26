@@ -20,8 +20,7 @@ public class MoodAnalyserFactory {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS);
 
         }
@@ -31,9 +30,9 @@ public class MoodAnalyserFactory {
     public static MoodAnalyser createMoodAnalyserObject(String message) throws MoodAnalysisException {
 
         try {
-            Class<?> moodAnalyserClass = Class.forName("com.moodanalyser.MoodAnalyser2");
+            Class<?> moodAnalyserClass = Class.forName("com.moodanalyser.MoodAnalyser");
             Constructor<?> moodAnalyserConstructor = moodAnalyserClass.getConstructor();
-            Object moodObject = moodAnalyserConstructor.newInstance(message);
+            Object moodObject = moodAnalyserConstructor.newInstance();
             return (MoodAnalyser) moodObject;
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -43,13 +42,39 @@ public class MoodAnalyserFactory {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
-        }
-        catch (ClassNotFoundException e) {
+        } catch (Error error) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
+        } catch (ClassNotFoundException e) {
             throw new MoodAnalysisException("No Such Class Error");
 
         }
         return null;
     }
 
+    public static MoodAnalyser createMoodAnalyserObject(String param1, String param2) throws MoodAnalysisException {
+
+        try {
+            Class<?> moodAnalyserClass = Class.forName("com.moodanalyser.MoodAnalyser");
+            Constructor<?> moodAnalyserConstructor = moodAnalyserClass.getConstructor();
+            Object moodObject = moodAnalyserConstructor.newInstance(param1, param2);
+            return (MoodAnalyser) moodObject;
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (Error error) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
+        } catch (ClassNotFoundException e) {
+            throw new MoodAnalysisException("No Such Class Error");
+        }
+        catch (IllegalArgumentException e){
+            throw  new MoodAnalysisException( MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
+        }
+        return null;
+    }
 
 }

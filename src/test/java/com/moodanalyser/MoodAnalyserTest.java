@@ -100,16 +100,19 @@ public class MoodAnalyserTest {
         try {
             MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
 
-     } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS,e.type);
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
             e.printStackTrace();
         }
-
     }
 
     @Test
     public void givenClassName_WhenConstructor_NotProper_ThrowException() throws MoodAnalysisException {
-      MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
 
+        try {
+            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject("I am creating an Object","Real Object");
+        } catch (MoodAnalysisException err) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD.toString(), err.getMessage());
+        }
     }
 }
