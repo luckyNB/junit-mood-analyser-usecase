@@ -73,6 +73,7 @@ public class MoodAnalyserTest {
         }
     }
 
+
     @Test
     public void givenEmptyMood_Should_ReturnException() {
         MoodAnalyser moodAnalyser = new MoodAnalyser();
@@ -98,11 +99,17 @@ public class MoodAnalyserTest {
     public void givenWrongClassName_Should_ThrowException() throws MoodAnalysisException {
         try {
             MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
-            boolean result = moodAnalyser.equals(moodAnalyser);
-            Assert.assertTrue(result);
-        } catch (Exception e) {
+
+     } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS,e.type);
             e.printStackTrace();
         }
+
+    }
+
+    @Test
+    public void givenClassName_WhenConstructor_NotProper_ThrowException() throws MoodAnalysisException {
+      MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
 
     }
 }
