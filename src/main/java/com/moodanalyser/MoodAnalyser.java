@@ -29,10 +29,11 @@ public class MoodAnalyser {
             throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL);
     }
 
-    public void analyzeMood(String mood) throws MoodAnalysisException {
+    public String analyzeMood(String mood) throws MoodAnalysisException {
         if (mood.isEmpty()) {
             throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY);
         }
+        return mood;
     }
 
     public boolean equals(Object object) {

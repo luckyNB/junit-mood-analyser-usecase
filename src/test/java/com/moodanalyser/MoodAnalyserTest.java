@@ -86,7 +86,7 @@ public class MoodAnalyserTest {
         }
     }
 
-  @Test
+    @Test
     public void givenClassName_WhenConstructor_NotProper_ThrowException() throws MoodAnalysisException {
 
         try {
@@ -103,5 +103,18 @@ public class MoodAnalyserTest {
         MoodAnalyserReflection.setFieldValue(myObject, "message", "I am in HAPPY mood");
         Object mood = MoodAnalyserReflection.invokeMethod(myObject, "analyzeMood");
         Assert.assertEquals("HAPPY", mood);
+    }
+
+
+    @Test
+    public void givenImproperClassName_Should_ThrowMoodAnalysisException() throws MoodAnalysisException {
+        try {
+            MoodAnalyser moodAnalyserObject = MoodAnalyserReflection.createMoodAnalyserObject("I am in Happy Mood");
+            String mood = moodAnalyserObject.analyzeMood();
+            Assert.assertEquals("HAPPY", mood);
+        } catch (MoodAnalysisException | MoodException e) {
+            e.printStackTrace();
+        }
+
     }
 }
