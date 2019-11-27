@@ -3,6 +3,8 @@ package com.moodanalyser;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+
 public class MoodAnalyserTest {
 
     @Test
@@ -84,35 +86,22 @@ public class MoodAnalyserTest {
         }
     }
 
-    @Test
-    public void givenMoodAnalyserClassName_Should_ReturnObject() {
-        try {
-            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
-            boolean result = moodAnalyser.equals(moodAnalyser);
-            Assert.assertTrue(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void givenWrongClassName_Should_ThrowException() throws MoodAnalysisException {
-        try {
-            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject();
-
-        } catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.type);
-            e.printStackTrace();
-        }
-    }
-
-    @Test
+  @Test
     public void givenClassName_WhenConstructor_NotProper_ThrowException() throws MoodAnalysisException {
 
         try {
-            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject("I am creating an Object","Real Object");
+            MoodAnalyser moodAnalyser = MoodAnalyserReflection.createMoodAnalyserObject("I am creating an Object", "Real Object");
         } catch (MoodAnalysisException err) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD.toString(), err.getMessage());
         }
+    }
+
+    @Test
+    public void givenMoodAnalyser_AsParamer_UsingParameterizedConstructor_ShouldReturnObject() throws MoodAnalysisException {
+        Constructor<?> constructor = MoodAnalyserReflection.getConstructor();
+        MoodAnalyser myObject = MoodAnalyserReflection.createMoodAnalyserObject(constructor);
+        MoodAnalyserReflection.setFieldValue(myObject, "message", "I am in HAPPY mood");
+        Object mood = MoodAnalyserReflection.invokeMethod(myObject, "analyzeMood");
+        Assert.assertEquals("HAPPY", mood);
     }
 }
