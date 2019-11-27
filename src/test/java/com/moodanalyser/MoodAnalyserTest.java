@@ -126,4 +126,16 @@ public class MoodAnalyserTest {
         }
     }
 
+    @Test
+    public void given_ImproperMethodName_Should_ThrowMoodAnalysisException() throws MoodAnalysisException {
+        try {
+            Object myObject = MoodAnalyserReflector.createMoodAnalyzer("I am in HAPPY mood");
+            Object mood = MoodAnalyserReflector.invokeMethod(myObject, "analyzeMoodd");
+            Assert.assertEquals("HAPPY", mood);
+        }
+        catch (MoodAnalysisException e){
+            e.printStackTrace();
+        }
+
+    }
 }

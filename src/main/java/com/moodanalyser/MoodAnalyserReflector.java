@@ -8,7 +8,7 @@ public class MoodAnalyserReflector {
 
     public static MoodAnalyser createMoodAnalyzer(String message) throws MoodAnalysisException {
         try {
-            Class<?> moodAnalyerClass = Class.forName("com.bridgelabz.MoodAnalyser");
+            Class<?> moodAnalyerClass = Class.forName("com.moodanalyser.MoodAnalyser");
             Constructor<?> moodConstructor = moodAnalyerClass.getConstructor(String.class);
             Object moodObj = moodConstructor.newInstance(message);
             return (MoodAnalyser) moodObj;
