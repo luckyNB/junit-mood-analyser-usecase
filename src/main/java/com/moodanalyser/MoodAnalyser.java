@@ -13,13 +13,13 @@ public class MoodAnalyser {
 
     }
 
-    public String analyzeMood() throws MoodException {
+    public String analyzeMood() throws MoodAnalysisException {
         try {
             if (message == null) {
                 return "HAPPY";
             }
         } catch (NullPointerException e) {
-            throw new MoodException("Please Enter Proper Mood");
+            throw new MoodAnalysisException("Please Enter Proper Mood");
         }
         return null;
     }

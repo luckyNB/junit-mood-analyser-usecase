@@ -13,7 +13,7 @@ public class MoodAnalyserTest {
         String currentMood = null;
         try {
             currentMood = moodAnalyser.analyzeMood();
-        } catch (MoodException e) {
+        } catch (MoodAnalysisException e) {
             e.printStackTrace();
         }
         Assert.assertEquals("HAPPY", currentMood);
@@ -25,7 +25,7 @@ public class MoodAnalyserTest {
         String currentMood = null;
         try {
             currentMood = moodAnalyser.analyzeMood();
-        } catch (MoodException e) {
+        } catch (MoodAnalysisException e) {
             e.printStackTrace();
         }
         Assert.assertEquals("SAD", currentMood);
@@ -37,7 +37,7 @@ public class MoodAnalyserTest {
         String currentMood = null;
         try {
             currentMood = moodAnalyser.analyzeMood();
-        } catch (MoodException e) {
+        } catch (MoodAnalysisException e) {
             e.printStackTrace();
         }
         Assert.assertEquals("HAPPY", currentMood);
@@ -49,7 +49,7 @@ public class MoodAnalyserTest {
         String currentMood = null;
         try {
             currentMood = moodAnalyser.analyzeMood();
-        } catch (MoodException e) {
+        } catch (MoodAnalysisException e) {
             Assert.assertEquals("Please Enter Proper Mood", e.getMessage());
         }
     }
@@ -60,7 +60,7 @@ public class MoodAnalyserTest {
         try {
             String currentMood = moodAnalyser.analyzeMood();
             Assert.assertEquals("HAPPY", currentMood);
-        } catch (MoodException e) {
+        } catch (MoodAnalysisException e) {
             e.printStackTrace();
         }
     }
@@ -112,9 +112,20 @@ public class MoodAnalyserTest {
             MoodAnalyser moodAnalyserObject = MoodAnalyserReflection.createMoodAnalyserObject("I am in Happy Mood");
             String mood = moodAnalyserObject.analyzeMood();
             Assert.assertEquals("HAPPY", mood);
-        } catch (MoodAnalysisException | MoodException e) {
+        } catch (MoodAnalysisException  e) {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void givenConstructorImproper_Should_ThrowMoodAnalysisException() throws MoodAnalysisException {
+        try {
+            MoodAnalyser moodAnalyserObject = MoodAnalyserReflection.createMoodAnalyserObject("I am in HAPPY Mood Analyser class");
+            String mood = moodAnalyserObject.analyzeMood();
+            Assert.assertEquals("HAPPY", mood);
+        } catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
     }
 }
