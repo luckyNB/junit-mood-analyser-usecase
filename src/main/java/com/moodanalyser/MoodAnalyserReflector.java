@@ -1,9 +1,31 @@
 package com.moodanalyser;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
-public class MoodAnalyserFactory {
+public class MoodAnalyserReflector {
+
+    public static MoodAnalyser createMoodAnalyzer(String message) throws MoodAnalysisException {
+        try {
+            Class<?> moodAnalyerClass = Class.forName("com.bridgelabz.MoodAnalyser");
+            Constructor<?> moodConstructor = moodAnalyerClass.getConstructor(String.class);
+            Object moodObj = moodConstructor.newInstance(message);
+            return (MoodAnalyser) moodObj;
+        } catch (ClassNotFoundException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
     public static MoodAnalyser createMoodAnalyserObject() throws MoodAnalysisException {
 
@@ -75,6 +97,31 @@ public class MoodAnalyserFactory {
             throw  new MoodAnalysisException( MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
         }
         return null;
+    }
+
+
+    public static Object invokeMethod(Object moodAnalyserObject, String methodName) throws MoodAnalysisException {
+        try {
+            return moodAnalyserObject.getClass().getMethod(methodName).invoke(moodAnalyserObject);
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, "Define proper method");
+        } catch (InvocationTargetException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, "may be wrong parameters");
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_ACCESS, "may be wrong parameters");
+        }
+    }
+
+    public static void setFieldValue(Object myObject, String fieldName, String fieldValue) throws MoodAnalysisException {
+        try {
+            Field field = field = myObject.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(myObject, fieldValue);
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, "May be Issue with Data entered");
+        } catch (NoSuchFieldException e) {
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, "Define proper field Name");
+        }
     }
 
 }
